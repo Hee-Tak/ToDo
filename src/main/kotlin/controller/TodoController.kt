@@ -1,9 +1,11 @@
 package controller
 
 import model.Todo
+import model.TodoList
 import view.TodoView
+import java.util.*
 
-class TodoController (private val view: TodoView){
+class TodoController (private val list: TodoList, private val view: TodoView){
 
     fun run(){
 
@@ -17,6 +19,7 @@ class TodoController (private val view: TodoView){
         )
 
 
+        list.addTodo(todos)
         //뷰에 출력 요청
         view.printTodoList(todos)
 
@@ -25,7 +28,21 @@ class TodoController (private val view: TodoView){
 
 
 fun main() {
+    val todoList = TodoList()
     val todoView = TodoView()
-    val todoController = TodoController(todoView)
+    val todoController = TodoController(todoList, todoView)
     todoController.run()
+
+    while(true){
+        print("Enter a new todo (or 'quit' to exit): ")
+        val input = readLine()
+        if(input.equals("quit", ignoreCase = true)){
+            break
+        }
+
+        val todo = Todo(input ?: "")
+        todoList.addTodo(todo)
+        todoView.printTodoList(todoList)
+    }
+
 }
