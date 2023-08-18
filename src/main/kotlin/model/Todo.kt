@@ -1,3 +1,3 @@
 package model
 
-data class Todo(val title: String, var completed: Boolean = false)
+data class Todo(var title: String, var completed: Boolean = false)
