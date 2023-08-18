@@ -26,14 +26,15 @@ class TodoController (private val list: TodoList, private val view: TodoView){
 
 
         while(true){
-            print("choose 1-add 2-complete 3-erase 4-quit : ")
+            print("choose 1-add 2-complete 3-erase 4-quit 5-show : ")
             val input = readLine()      //!!.toInt()
             var quit = false
             when(input){
-                "1" -> Add(list, view)
-                "2" -> {}
+                "1" -> Add()
+                "2" -> Completed()
                 "3" -> {}
                 "4" -> {quit = Quit()}
+                "5" -> Show()
                 else -> {}
             }
             if(quit) break
@@ -43,7 +44,7 @@ class TodoController (private val list: TodoList, private val view: TodoView){
     }
 
 
-    fun Add(list: TodoList, view: TodoView){
+    private fun Add(){
         print("Enter a new todo : ")
         val input = readLine()
         val todo = Todo(input ?: "")
@@ -51,7 +52,7 @@ class TodoController (private val list: TodoList, private val view: TodoView){
         view.printTodoList(list)
     }
 
-    fun Completed(list: TodoList){
+    private fun Completed(){
         print("Enter the number of the completed todo : ")
         val input = readLine()
         val todoNumber = input!!.toInt()
@@ -64,11 +65,15 @@ class TodoController (private val list: TodoList, private val view: TodoView){
         }
     }
 
-    fun Quit(): Boolean{
+    private fun Quit(): Boolean{
         print("If you want to exit, Enter 'quit' : ")
         val input = readLine()
         if(input.equals("quit", ignoreCase = true)) return true
         return false
+    }
+
+    private fun Show(){
+        view.printTodoList(list)
     }
 
 }
