@@ -17,13 +17,8 @@ class TodoController (private val list: TodoList, private val view: TodoView){
             Todo("Study for exam"),
             Todo("Drink water")
         )
-
-
         list.addTodo(todos)
-        //뷰에 출력 요청
-        //view.printTodoList(todos)
-
-
+        Show()              //view.printTodoList(todos) //뷰에 출력 요청
 
         while(true){
             print("choose 1-add 2-complete 3-erase 4-quit 5-show : ")
