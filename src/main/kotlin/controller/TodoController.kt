@@ -23,6 +23,20 @@ class TodoController (private val list: TodoList, private val view: TodoView){
         //뷰에 출력 요청
         view.printTodoList(todos)
 
+
+
+        while(true){
+            print("Enter a new todo (or 'quit' to exit): ")
+            val input = readLine()
+            if(input.equals("quit", ignoreCase = true)){
+                break
+            }
+
+            val todo = Todo(input ?: "")
+            list.addTodo(todo)
+            view.printTodoList(list)
+        }
+
     }
 }
 
@@ -32,17 +46,5 @@ fun main() {
     val todoView = TodoView()
     val todoController = TodoController(todoList, todoView)
     todoController.run()
-
-    while(true){
-        print("Enter a new todo (or 'quit' to exit): ")
-        val input = readLine()
-        if(input.equals("quit", ignoreCase = true)){
-            break
-        }
-
-        val todo = Todo(input ?: "")
-        todoList.addTodo(todo)
-        todoView.printTodoList(todoList)
-    }
 
 }
