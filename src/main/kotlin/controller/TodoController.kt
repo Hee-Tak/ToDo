@@ -79,5 +79,4 @@ fun main() {
     val todoView = TodoView()
     val todoController = TodoController(todoList, todoView)
     todoController.run()
-
 }
