@@ -8,7 +8,6 @@ import java.util.*
 class TodoController (private val list: TodoList, private val view: TodoView){
 
     fun run(){
-
         //임시 데이터 생성
         val todos = arrayOf(
             Todo("Maple Story"),
@@ -37,7 +36,6 @@ class TodoController (private val list: TodoList, private val view: TodoView){
         }
 
     }
-
 
     private fun Add(){
         print("Enter a new todo : ")
@@ -72,7 +70,6 @@ class TodoController (private val list: TodoList, private val view: TodoView){
     }
 
 }
-
 
 fun main() {
     val todoList = TodoList()
