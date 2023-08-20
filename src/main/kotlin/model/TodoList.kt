@@ -17,4 +17,8 @@ class TodoList {
     fun removeTodo(todo: Todo){
         todos.remove(todo)
     }
+
+    fun checkTodo(todo: Todo){
+
+    }
 }

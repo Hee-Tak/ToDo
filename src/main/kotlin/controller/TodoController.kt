@@ -22,7 +22,7 @@ class TodoController (private val list: TodoList, private val view: TodoView){
         Show()              //view.printTodoList(todos) //뷰에 출력 요청
 
         while(true){
-            print("choose 1-add 2-complete 3-delete 4-modify 5-quit 6-show : ")
+            print("choose 1-add 2-complete 3-delete 4-modify 5-show 6-quit : ")
             val input = readLine()      //!!.toInt()
             var quit = false
             when(input){
@@ -30,8 +30,8 @@ class TodoController (private val list: TodoList, private val view: TodoView){
                 "2" -> Check()
                 "3" -> Delete(list)
                 "4" -> Modify(list)
-                "5" -> {quit = Quit()}
-                "6" -> Show()
+                "5" -> Show()
+                "6" -> {quit = Quit()}
                 else -> {}
             }
             if(quit) break
@@ -45,31 +45,56 @@ class TodoController (private val list: TodoList, private val view: TodoView){
         val input = readLine()
         val todo = Todo(input ?: "")
         list.addTodo(todo)
-        view.printTodoList(list)
+        //view.printTodoList(list)
+        Show()
     }
 
     private fun Check(){
-        print("Enter the number of the check(or Uncheck) todo : ")
+        print("Enter the number(or title) of the check(or Uncheck) todo : ")
         val input = readLine()
         val todoNumber = input!!.toInt()
-        if(todoNumber != null && todoNumber in 1..list.todos.size){
-            val todo = list.todos[todoNumber-1]
-            todo.completed = !todo.completed
-            view.printTodoList(list)
+        val todoToCheck = list.todos.find { it.title == input }
+
+        if(input!!.toIntOrNull() != null){
+            if(todoNumber != null && todoNumber in 1..list.todos.size){
+                val todo = list.todos[todoNumber-1]
+                todo.completed = !todo.completed
+                //view.printTodoList(list)
+                Show()
+            } else {
+                println("Invalid input. Please enter a valid number.")
+            }
         } else {
-            println("Invalid input. Please enter a valid number.")
+            if(todoToCheck != null){
+                todoToCheck.completed = !todoToCheck.completed
+                Show()
+            } else {
+                println("Todo not found. Please enter a valid title or number. ")
+            }
         }
+
+
     }
 
     private fun Delete(todoList: TodoList){
-        print("Enter the title you want to delete : ")
+        print("Enter the title(or the number) you want to delete : ")
         val targetTitle = readLine()
         val todoToRemove = todoList.todos.find { it.title == targetTitle }
-        if(todoToRemove != null){
-            todoList.removeTodo(todoToRemove)
-            println("Todo deleted successfully ! ")
+        if(targetTitle!!.toIntOrNull() != null){
+            val number = targetTitle!!.toInt()
+            if(number in 1..list.todos.size){
+                todoList.removeTodo(list.todos[number-1])
+                println("Todo deleted successfully ! ")
+            } else{
+                println("Invalid input.")
+            }
         } else {
-            println("Todo with the specified title not found. ")
+            if(todoToRemove != null){
+                todoList.removeTodo(todoToRemove)
+                println("Todo deleted successfully ! ")
+            } else {
+                println("Todo with the specified title not found")
+            }
         }
     }
 
