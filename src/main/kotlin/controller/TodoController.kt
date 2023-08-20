@@ -149,7 +149,7 @@ class TodoController (private val list: TodoList, private val view: TodoView){
             }
         }
         //=====================================================================
-        val second = if(first!!.toIntOrNull() != null){
+        val second = if(first!!.toIntOrNull() != null){   //이거 지금보니깐 first에 따라 올바른 입력값 유도만 한다 뿐이지 대충 맞으면 뭘해도 됨 first-숫자,second-title 조합도 가능하다는 뜻
             print("Enter the number of the second title to change the order : ")
             readLine()
         } else {
