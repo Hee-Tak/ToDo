@@ -13,4 +13,8 @@ class TodoList {
             todos.add(do1)
         }
     }
+
+    fun removeTodo(todo: Todo){
+        todos.remove(todo)
+    }
 }
