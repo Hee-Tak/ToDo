@@ -36,7 +36,9 @@ class TodoController (private val list: TodoList, private val view: TodoView){
                 "5" -> ChangeTheOrder()
                 "6" -> Show()
                 "7" -> {quit = Quit()}
-                else -> {}
+                else -> {
+                    println("Invalid number. Please enter a valid number. ")
+                }
             }
             if(quit) break
 
