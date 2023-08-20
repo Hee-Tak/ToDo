@@ -18,7 +18,4 @@ class TodoList {
         todos.remove(todo)
     }
 
-    fun checkTodo(todo: Todo){
-
-    }
 }

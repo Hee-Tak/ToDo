@@ -16,13 +16,16 @@ class TodoController (private val list: TodoList, private val view: TodoView){
             Todo("Lost Ark"),
             Todo("GYM"),
             Todo("Study for exam"),
-            Todo("Drink water")
+            Todo("Drink water"),
+            Todo("Do homework"),
+            Todo("Shower"),
+            Todo("계획")
         )
         list.addTodo(todos)
         Show()              //view.printTodoList(todos) //뷰에 출력 요청
 
         while(true){
-            print("choose 1-add 2-complete 3-delete 4-modify 5-show 6-quit : ")
+            print("choose 1-add 2-complete 3-delete 4-modify 5-change the order 6-show 7-quit : ")
             val input = readLine()      //!!.toInt()
             var quit = false
             when(input){
@@ -30,8 +33,9 @@ class TodoController (private val list: TodoList, private val view: TodoView){
                 "2" -> Check()
                 "3" -> Delete(list)
                 "4" -> Modify(list)
-                "5" -> Show()
-                "6" -> {quit = Quit()}
+                "5" -> ChangeTheOrder()
+                "6" -> Show()
+                "7" -> {quit = Quit()}
                 else -> {}
             }
             if(quit) break
@@ -126,15 +130,78 @@ class TodoController (private val list: TodoList, private val view: TodoView){
             } else {
                 println("Todo with the specified title not found.")
             }
+        }
+    }
 
+    private fun ChangeTheOrder(){
+        print("Enter the first title (or its number) to change the order : ")
+        //====================================================================
+        val first = readLine()
+        val firstTodo = list.todos.find{ it.title == first }
+        if(first!!.toIntOrNull() != null && !(first!!.toInt() in 1..list.todos.size)){
+            println("Invalid input.")
+            return
+        }
+        if(!(first!!.toIntOrNull() != null)){
+            if(firstTodo == null){
+                println("Todo with the specified title not found.")
+                return
+            }
+        }
+        //=====================================================================
+        val second = if(first!!.toIntOrNull() != null){
+            print("Enter the number of the second title to change the order : ")
+            readLine()
+        } else {
+            print("Enter the second title to change the order : ")
+            readLine()
+        }
+        val secondTodo = list.todos.find{ it.title == second }
+
+        if(second!!.toIntOrNull() != null && !(second!!.toInt() in 1..list.todos.size)){
+            println("Invalid input.")
+            return
+        }
+        if(second!!.toIntOrNull() == null){
+            val todoToChange = list.todos.find{ it.title == second }
+            if(todoToChange == null){
+                println("Todo with the specified title not found.")
+                return
+            }
+        }
+        //======================================================================
+
+        val index1 = if(first!!.toIntOrNull() == null){ //숫자가 아니라면. 문자라면
+            list.todos.indexOf(firstTodo)
+        } else {
+            first!!.toInt() - 1
         }
 
+        val index2 = if(second!!.toIntOrNull() == null){
+            list.todos.indexOf(secondTodo)
+        } else {
+            second!!.toInt() - 1
+        }
 
+        if(index1 == -1 || index2 == -1){ //안전장치 하나 더
+            println("An error occurred while changing the order.")
+            return
+        }
 
+        //======================================================================
+        if (firstTodo != null && secondTodo != null) {
+            list.todos[index1] = secondTodo
+            list.todos[index2] = firstTodo
+        } else {
+            val temp = list.todos[index1]
+            list.todos[index1] = list.todos[index2]
+            list.todos[index2] = temp
+        }
 
-
-
+        Show()
+        println("Completed the order exchange. ")
     }
+
 
     private fun Quit(): Boolean{
         print("If you want to exit, Enter 'quit' : ")
