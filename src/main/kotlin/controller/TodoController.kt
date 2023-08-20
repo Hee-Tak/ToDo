@@ -50,12 +50,13 @@ class TodoController (private val list: TodoList, private val view: TodoView){
     }
 
     private fun Check(){
-        print("Enter the number(or title) of the check(or Uncheck) todo : ")
+        print("Enter the number(or its title) of the check(or Uncheck) todo : ")
         val input = readLine()
-        val todoNumber = input!!.toInt()
+
         val todoToCheck = list.todos.find { it.title == input }
 
         if(input!!.toIntOrNull() != null){
+            val todoNumber = input!!.toInt()
             if(todoNumber != null && todoNumber in 1..list.todos.size){
                 val todo = list.todos[todoNumber-1]
                 todo.completed = !todo.completed
@@ -77,14 +78,15 @@ class TodoController (private val list: TodoList, private val view: TodoView){
     }
 
     private fun Delete(todoList: TodoList){
-        print("Enter the title(or the number) you want to delete : ")
+        print("Enter the title(or its number) you want to delete : ")
         val targetTitle = readLine()
         val todoToRemove = todoList.todos.find { it.title == targetTitle }
         if(targetTitle!!.toIntOrNull() != null){
             val number = targetTitle!!.toInt()
             if(number in 1..list.todos.size){
-                todoList.removeTodo(list.todos[number-1])
+                list.removeTodo(list.todos[number-1])
                 println("Todo deleted successfully ! ")
+                Show()
             } else{
                 println("Invalid input.")
             }
@@ -92,6 +94,7 @@ class TodoController (private val list: TodoList, private val view: TodoView){
             if(todoToRemove != null){
                 todoList.removeTodo(todoToRemove)
                 println("Todo deleted successfully ! ")
+                Show()
             } else {
                 println("Todo with the specified title not found")
             }
@@ -99,17 +102,37 @@ class TodoController (private val list: TodoList, private val view: TodoView){
     }
 
     private fun Modify(todoList: TodoList){
-        print("Enter the title you want to modify : ")
+        print("Enter the title(or its number) you want to modify : ")
         val targetTitle = readLine()
         val todoToUpdate = todoList.todos.find{ it.title == targetTitle }
-        if(todoToUpdate != null){
-            print("Enter the new title : ")
-            val newTitle = readLine()
-            todoToUpdate.title = newTitle ?: todoToUpdate.title
-            println("Todo title modified successfully ! ")
+        if(targetTitle!!.toIntOrNull() != null){
+            val number = targetTitle!!.toInt()
+            if(number in 1..todoList.todos.size){
+                print("Enter the new title : ")
+                val newTitle = readLine()
+                todoList.todos[number-1].title = newTitle ?: todoList.todos[number-1].title
+                println("Todo title modified successfully ! ")
+                Show()
+            } else {
+                println("Invalid input.")
+            }
         } else {
-            println("Todo with the specified title not found.")
+            if(todoToUpdate != null){
+                print("Enter the new title : ")
+                val newTitle = readLine()
+                todoToUpdate.title = newTitle ?: todoToUpdate.title
+                println("Todo title modified successfully ! ")
+                Show()
+            } else {
+                println("Todo with the specified title not found.")
+            }
+
         }
+
+
+
+
+
 
     }
 
