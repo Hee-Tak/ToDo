@@ -5,6 +5,7 @@ import model.TodoList
 import view.TodoView
 import java.io.File
 import java.io.FileWriter
+import java.time.LocalDateTime
 import java.util.*
 
 class TodoController (private val list: TodoList, private val view: TodoView){
@@ -213,7 +214,15 @@ class TodoController (private val list: TodoList, private val view: TodoView){
     }
 
     private fun Show(){
-        view.printTodoList(list)
+        getCurrentDataTime() //일일Todo List가 핵심아이디어다 보니, 시간데이터를 가지고올 필요가 있었음
+        view.printTodoList(list) //메인 기능
+    }
+
+    fun getCurrentDataTime() {
+        val now = LocalDateTime.now()
+        val dayOfWeek = now.dayOfWeek
+
+        view.displayDateTime(now, dayOfWeek)
     }
 
 }

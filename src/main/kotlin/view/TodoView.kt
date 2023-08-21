@@ -2,6 +2,8 @@ package view
 
 import model.Todo
 import model.TodoList
+import java.time.DayOfWeek
+import java.time.LocalDateTime
 
 class TodoView {
 
@@ -40,6 +42,12 @@ class TodoView {
 
     private fun printTitle(){
         println("\t\t\t\t <Todo List> ")
+    }
+
+
+    fun displayDateTime(dateTime: LocalDateTime, dayOfWeek: DayOfWeek){
+        println("Current time : $dateTime")
+        println("Day of the week : $dayOfWeek")
     }
 
 }
