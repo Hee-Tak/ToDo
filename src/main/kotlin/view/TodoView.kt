@@ -46,15 +46,19 @@ class TodoView {
 
 
     fun displayDateTime(dateTime: LocalDateTime, dayOfWeek: DayOfWeek){
-        printBar()
+        printBar2()
         println("Current time : $dateTime")
         println("Day of the week : $dayOfWeek")
     }
 
     fun displayDateTime(hour: Int, minute: Int, second: Int, dayOfWeek: DayOfWeek){
-        printBar()
+        printBar2()
         println("Current time: $hour : $minute : $second ")
         println("Day of the week : $dayOfWeek ")
+    }
+
+    private fun printBar2(){
+        println("================================================")
     }
 
 }
