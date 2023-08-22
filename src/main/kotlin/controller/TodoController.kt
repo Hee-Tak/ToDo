@@ -6,7 +6,10 @@ import view.TodoView
 import java.io.File
 import java.io.FileWriter
 import java.time.LocalDateTime
+import java.time.LocalTime
 import java.util.*
+import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 import kotlin.math.min
 
 class TodoController (private val list: TodoList, private val view: TodoView){
@@ -224,13 +227,39 @@ class TodoController (private val list: TodoList, private val view: TodoView){
         view.displayDateTime(now)
     }
 
+    fun resetCompletedStatus() {
+        list.todos.forEach { it.completed = false }
+        println("매일 오전 6:00 초기화 진행.")
+    }
+
+
+
 }
 
 fun main() {
     val todoList = TodoList()
     val todoView = TodoView()
     val todoController = TodoController(todoList, todoView)
+    startScheduling(todoController)
     todoController.run()
+
+
+}
+
+
+fun startScheduling(controller: TodoController){
+    val scheduler = Executors.newScheduledThreadPool(1)
+    val currentTime = LocalTime.now()
+    val initialDelay = (24 - currentTime.hour) % 24 + 6 //다음날 오전 6시
+    scheduler.scheduleAtFixedRate(controller::resetCompletedStatus, initialDelay.toLong(), 24, TimeUnit.HOURS)
+    //resetCompletedStatus 함수를 설정한 시간 간격으로 계속 실행하라는 의미
+    // :: -> 메소드 레퍼런스 (메소드를 값처럼 다룰수 있게 해주는 개념). 매소드 자체를 참조하는 것
+    //즉, controller 객체의 resertCompletedStatus 메소드를 참조하는 것
+
+    //프로그램이 종료될 때 스케줄링 작업을 종료하도록 설정
+    Runtime.getRuntime().addShutdownHook(Thread {
+        scheduler.shutdown()
+    })
 }
 
 
