@@ -45,31 +45,28 @@ class TodoView {
     }
 
 
-    fun displayDateTime(dateTime: LocalDateTime, dayOfWeek: DayOfWeek){
-        printBar2()
-        println("Current time : $dateTime")
-        println("Day of the week : $dayOfWeek")
-    }
-
-    fun displayDateTime(hour: Int, minute: Int, second: Int, dayOfWeek: DayOfWeek){
-        printBar2()
-        println("Current time: $hour : $minute : $second ")
-        println("Day of the week : $dayOfWeek ")
-    }
-
-    fun displayDateTime2(dateTime: LocalDateTime){
+    fun displayDateTime(dateTime: LocalDateTime){
         val year = dateTime.year
         val month = dateTime.monthValue
         val day = dateTime.dayOfMonth
         val hour = dateTime.hour
         val minute = dateTime.minute
         val second = dateTime.second
-        val dayOfWeek = dateTime.dayOfWeek
+        val dayOfWeek = when(dateTime.dayOfWeek) {
+            DayOfWeek.MONDAY -> "월요일"
+            DayOfWeek.TUESDAY -> "화요일"
+            DayOfWeek.WEDNESDAY -> "수요일"
+            DayOfWeek.THURSDAY -> "목요일"
+            DayOfWeek.FRIDAY -> "금요일"
+            DayOfWeek.SATURDAY -> "토요일"
+            DayOfWeek.SUNDAY -> "일요일"
+        }
 
         printBar2()
         println("현재 날짜 : ${year}년 ${month}월 ${day}일")
         println("현재 시각 : ${hour}시 ${minute}분 ${second}초")
-        println("Day of the week : $dayOfWeek ")
+        println("  요 일  : $dayOfWeek ")
+        printBar2()
     }
 
     private fun printBar2(){

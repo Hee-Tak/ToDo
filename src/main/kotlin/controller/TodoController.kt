@@ -221,15 +221,10 @@ class TodoController (private val list: TodoList, private val view: TodoView){
 
     fun getCurrentDataTime() {
         val now = LocalDateTime.now()
-        val hour = now.hour
-        val minute = now.minute
-        val second = now.second
 
-        val dayOfWeek = now.dayOfWeek
-
-        view.displayDateTime(now, dayOfWeek)
-        view.displayDateTime(hour, minute, second, dayOfWeek)
-        view.displayDateTime2(now, dayOfWeek)
+        //view.displayDateTime(now, dayOfWeek)
+        //view.displayDateTime(hour, minute, second, dayOfWeek)
+        view.displayDateTime(now)
     }
 
 }
