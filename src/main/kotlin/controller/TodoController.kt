@@ -229,6 +229,7 @@ class TodoController (private val list: TodoList, private val view: TodoView){
 
         view.displayDateTime(now, dayOfWeek)
         view.displayDateTime(hour, minute, second, dayOfWeek)
+        view.displayDateTime2(now, dayOfWeek)
     }
 
 }

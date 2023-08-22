@@ -57,6 +57,21 @@ class TodoView {
         println("Day of the week : $dayOfWeek ")
     }
 
+    fun displayDateTime2(dateTime: LocalDateTime){
+        val year = dateTime.year
+        val month = dateTime.monthValue
+        val day = dateTime.dayOfMonth
+        val hour = dateTime.hour
+        val minute = dateTime.minute
+        val second = dateTime.second
+        val dayOfWeek = dateTime.dayOfWeek
+
+        printBar2()
+        println("현재 날짜 : ${year}년 ${month}월 ${day}일")
+        println("현재 시각 : ${hour}시 ${minute}분 ${second}초")
+        println("Day of the week : $dayOfWeek ")
+    }
+
     private fun printBar2(){
         println("================================================")
     }
