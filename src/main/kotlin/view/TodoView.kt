@@ -63,14 +63,14 @@ class TodoView {
         }
 
         printBar2()
-        println("현재 날짜 : ${year}년 ${month}월 ${day}일")
-        println("현재 시각 : ${hour}시 ${minute}분 ${second}초")
-        println("  요 일  : $dayOfWeek ")
+        println("\t\t* 현재 날짜 : ${year}년 ${month}월 ${day}일 \t*")
+        println("\t\t* 현재 시각 : ${hour}시 ${minute}분 ${second}초\t*")
+        println("\t\t*   요 일  : $dayOfWeek \t\t\t*")
         printBar2()
     }
 
     private fun printBar2(){
-        println("================================================")
+        println("\t\t*****************************")
     }
 
 }
