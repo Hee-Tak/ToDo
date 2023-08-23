@@ -73,4 +73,11 @@ class TodoView {
         println("\t\t*****************************")
     }
 
+    fun printAction(){
+        println("\t\t\t<Action>")
+        println("1-추가\t2-수행완료\t3-삭제")
+        println("4-수정\t5-순서변경\t6-현황보기")
+        println("7-종료\t")
+    }
+
 }

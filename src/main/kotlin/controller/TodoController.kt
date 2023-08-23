@@ -30,7 +30,8 @@ class TodoController (private val list: TodoList, private val view: TodoView){
         Show()              //view.printTodoList(todos) //뷰에 출력 요청
 
         while(true){
-            print("choose 1-add 2-complete 3-delete 4-modify 5-change the order 6-show 7-quit : ")
+            view.printAction()
+            print("choose : ")
             val input = readLine()      //!!.toInt()
             var quit = false
             when(input){
@@ -221,6 +222,8 @@ class TodoController (private val list: TodoList, private val view: TodoView){
         getCurrentDataTime() //일일Todo List가 핵심아이디어다 보니, 시간데이터를 가지고올 필요가 있었음
         view.printTodoList(list) //메인 기능
     }
+
+
 
     fun getCurrentDataTime() {
         val now = LocalDateTime.now()
