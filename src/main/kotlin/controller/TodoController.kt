@@ -277,6 +277,7 @@ fun saveDataToFile(todoList: TodoList){
     writer.close()
 }
 
+
 fun loadDataFromFile(): TodoList {
     val file = File("todos.txt")
     val todoList = TodoList()
