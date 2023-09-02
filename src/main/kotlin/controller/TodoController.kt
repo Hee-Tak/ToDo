@@ -265,7 +265,6 @@ fun startScheduling(controller: TodoController){
     })
 }
 
-
 fun saveDataToFile(todoList: TodoList){
     val file = File("todos.txt")
     val writer = FileWriter(file)
